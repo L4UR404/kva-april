@@ -1,0 +1,22 @@
+.toy-card {
+ width: 230px;
+ height: 380px;
+}
+
+
+.card-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  
+}
+.mat-mdc-card-image.mdc-card_media {
+  height: 100px;
+}
+.filter-container { 
+  display: flex; 
+  flex-wrap: wrap;
+  justify-content: center;
+}
