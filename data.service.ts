@@ -18,9 +18,9 @@ export class DataService {
     static getZapakovanoById(id: number){
   // Koristimo == ili Number() da izbegnemo problem string vs number
   for (let zp of this.getZapakovano()) {
-    if (Number(zp.id) === Number(id)) return zp;
+    if (Number(zp.id) === Number(id)) return zp
   }
-  return this.getZapakovano()[0];
+  return this.getZapakovano()[0]
 }
     
     
