@@ -29,17 +29,16 @@ export class Home {
  toys = signal<ToyModel[]>([])
 
 
- // Filter signali
-  searchQuery = signal<string>('');
-  maxPrice = signal<number | null>(null);
-  selectedAgeGroup = signal<string>('');
-  selectedType = signal<string>('');
-  selectedTargetGroup = signal<string>('');
-  productionDate = signal<string>('');
+ 
+  searchQuery = signal<string>('')
+  maxPrice = signal<number | null>(null)
+  selectedAgeGroup = signal<string>('')
+  selectedType = signal<string>('')
+  selectedTargetGroup = signal<string>('')
+  productionDate = signal<string>('')
 
-  // Dinamičke liste za filtere (izvlače se iz podataka)
-  ageGroups = computed(() => [...new Set(this.toys().map(t => t.ageGroup.name))]);
-  toyTypes = computed(() => [...new Set(this.toys().map(t => t.type.name))]);
+  ageGroups = computed(() => [...new Set(this.toys().map(t => t.ageGroup.name))])
+  toyTypes = computed(() => [...new Set(this.toys().map(t => t.type.name))])
 
   // Master Filter Logika
   filteredToys = computed(() => {
@@ -47,20 +46,20 @@ export class Home {
       const q = this.searchQuery().toLowerCase();
       
       const matchesSearch = t.name.toLowerCase().includes(q) || 
-                            t.description.toLowerCase().includes(q);
+                            t.description.toLowerCase().includes(q)
       
-      const matchesPrice = this.maxPrice() ? t.price <= this.maxPrice()! : true;
-      const matchesAge = this.selectedAgeGroup() ? t.ageGroup.name === this.selectedAgeGroup() : true;
-      const matchesType = this.selectedType() ? t.type.name === this.selectedType() : true;
+      const matchesPrice = this.maxPrice() ? t.price <= this.maxPrice()! : true
+      const matchesAge = this.selectedAgeGroup() ? t.ageGroup.name === this.selectedAgeGroup() : true
+      const matchesType = this.selectedType() ? t.type.name === this.selectedType() : true
       
       
-      const matchesTarget = this.selectedTargetGroup() ? t.targetGroup === this.selectedTargetGroup() : true;
+      const matchesTarget = this.selectedTargetGroup() ? t.targetGroup === this.selectedTargetGroup() : true
       
-      const matchesDate = this.productionDate() ? t.productionDate.startsWith(this.productionDate()) : true;
+      const matchesDate = this.productionDate() ? t.productionDate.startsWith(this.productionDate()) : true
 
-      return matchesSearch && matchesPrice && matchesAge && matchesType && matchesTarget && matchesDate;
-    });
-  });
+      return matchesSearch && matchesPrice && matchesAge && matchesType && matchesTarget && matchesDate
+    })
+  })
 
   constructor(public utils: Utils){
     ToyService.getToys()
@@ -69,11 +68,11 @@ export class Home {
   }
 
   resetFilters() {
-    this.searchQuery.set('');
-    this.maxPrice.set(null);
-    this.selectedAgeGroup.set('');
-    this.selectedType.set('');
-    this.selectedTargetGroup.set('');
-    this.productionDate.set('');
+    this.searchQuery.set('')
+    this.maxPrice.set(null)
+    this.selectedAgeGroup.set('')
+    this.selectedType.set('')
+    this.selectedTargetGroup.set('')
+    this.productionDate.set('')
   }
 }
