@@ -98,7 +98,7 @@ export class AuthService{
     for (let u of users) {
         if (u.email === localStorage.getItem(ACTIVE)) {
             for (let o of u.orders) {
-                // Proveravamo stanje 'w' (waiting) i tačan datum kreiranja
+                
                 if (o.state == 'w' && o.createdAt == createdAt) {
                     o.state = 'c' // Menjamo u 'c' (cancelled)
                 }
@@ -112,7 +112,7 @@ static payOrders() {
     for (let u of users) {
         if (u.email === localStorage.getItem(ACTIVE)) {
             for (let o of u.orders) {
-                // Sve što je bilo na čekanju ('w') sada prelazi u plaćeno ('p')
+                
                 if (o.state == 'w') {
                     o.state = 'p'
                 }
