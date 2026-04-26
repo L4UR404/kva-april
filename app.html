@@ -1,0 +1,49 @@
+
+<mat-toolbar>
+  
+  <span>
+   
+
+
+    K⚘dsT✪ys
+  </span>
+  
+  <span class="spacer"></span>
+  
+  <a routerLink="/" matButton="">
+  <mat-icon   fontIcon="home"></mat-icon>home
+  </a>
+  @if (servise.getActiveUser()) {
+     <a routerLink="/cart" matButton="">
+  <mat-icon   fontIcon="shopping_cart"></mat-icon>korpa
+  </a>
+  }
+ 
+  
+  
+  <button matButton [matMenuTriggerFor]="afterMenu"><mat-icon   fontIcon="person"></mat-icon>Korisnik</button>
+<mat-menu #afterMenu="matMenu" xPosition="after">
+  
+  @if (servise.getActiveUser()){
+    <a routerLink="/user"><button mat-menu-item>Account</button></a>
+    <button matButton (click)="doLogout()">
+      <mat-icon fontIcon="logout"></mat-icon>
+      Logout
+    </button>
+      
+    
+  }
+  @else {
+    <a routerLink="/login" matButton>
+      <mat-icon fontIcon="login"></mat-icon>
+    Login
+    </a>
+  }
+</mat-menu>
+</mat-toolbar>
+
+
+<div class="wrapper">
+  <router-outlet />
+</div>
+ 
