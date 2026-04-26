@@ -53,7 +53,7 @@ export class Home {
       const matchesAge = this.selectedAgeGroup() ? t.ageGroup.name === this.selectedAgeGroup() : true;
       const matchesType = this.selectedType() ? t.type.name === this.selectedType() : true;
       
-      // Ispravljeno za tvoje polove: "svi", "dečak", "devojčica"
+      
       const matchesTarget = this.selectedTargetGroup() ? t.targetGroup === this.selectedTargetGroup() : true;
       
       const matchesDate = this.productionDate() ? t.productionDate.startsWith(this.productionDate()) : true;
