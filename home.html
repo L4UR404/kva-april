@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document list</title>
+</head>
+<body>
+  
+  <div class="filter-wrapper" >
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon style="margin-right: 10px;">filter_alt</mat-icon>
+        <strong>FILTERI ZA PRETRAGU</strong>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div >
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Naziv ili opis</mat-label>
+        <input matInput [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event)">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tip igračke</mat-label>
+        <mat-select [ngModel]="selectedType()" (ngModelChange)="selectedType.set($event)">
+          <mat-option value="">Svi tipovi</mat-option>
+          @for (type of toyTypes(); track type) {
+            <mat-option [value]="type">{{type}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Uzrast</mat-label>
+        <mat-select [ngModel]="selectedAgeGroup()" (ngModelChange)="selectedAgeGroup.set($event)">
+          <mat-option value="">Svi uzrasti</mat-option>
+          @for (age of ageGroups(); track age) {
+            <mat-option [value]="age">{{age}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ciljna grupa</mat-label>
+        <mat-select [ngModel]="selectedTargetGroup()" (ngModelChange)="selectedTargetGroup.set($event)">
+          <mat-option value="">Svi</mat-option>
+          <mat-option value="dečak">Dečaci</mat-option>
+          <mat-option value="devojčica">Devojčice</mat-option>
+          <mat-option value="svi">Unisex / Svi</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Maks. cena (RSD)</mat-label>
+        <input matInput type="number" [ngModel]="maxPrice()" (ngModelChange)="maxPrice.set($event)">
+      </mat-form-field>
+
+      <button mat-flat-button color="warn" style="height: 56px;" (click)="resetFilters()">
+        <mat-icon>restart_alt</mat-icon> Resetuj
+      </button>
+
+    </div>
+  </mat-expansion-panel>
+</div>
+
+
+    @if (toys().length > 0) {
+        <div class="card-wrapper">
+            @for ( t of toys(); track $index){
+    <mat-card class="toy-card" appearance="outlined">
+  
+  <img mat-card-image [src]="utils.getImgUrl(t)" 
+  [alt]="t.description">
+  <mat-card-content>
+    <h3>{{t.name}}</h3> 
+    <p>{{t.price}}rsd</p>
+     <mat-card-actions>
+      <a [routerLink]="`/details/${t.toyId}`" matButton> <mat-icon   fontIcon="description"></mat-icon>
+        Details</a>
+      @if (servise.getActiveUser()) {
+        <a [routerLink]="`/details/${t.toyId}/order`" matButton>
+          <mat-icon fontIcon="confirmation_number"/>
+          kupi
+        </a>
+      }
+      
+    </mat-card-actions>
+  </mat-card-content>
+ 
+</mat-card>
+}@if (filteredToys().length === 0) {
+            <p >Nema proizvoda koji odgovaraju vašoj pretrazi.</p>
+        }
+
+</div>
+    }
+   
+       @else {
+       <app-loading/>
+        
+    }
+   
+   
+
+   
+</body>
+<footer>
+  <div style="display: block; justify-content: center; width: 100%;">
+    <mat-card >
+    <mat-card-content  >
+       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2902.7902365826476!2d21.893442475861548!3d43.31865037400482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4755b0b16f291241%3A0x5d4587d453cb8630!2z0KPQvdC40LLQtdGA0LfQuNGC0LXRgiDQodC40L3Qs9C40LTRg9C90YPQvA!5e0!3m2!1sde!2srs!4v1773752224660!5m2!1sde!2srs" 
+         width="100%"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"  >
+       </iframe>
+     <div style="display: flex; justify-content: center;">
+       <ul>
+         <li><p>laura.jankovic.23singimail.rs</p></li>
+         <li><p>&footer</p></li>
+       </ul>
+     </div>
+     
+    </mat-card-content>
+  </mat-card>
+  </div>
+  
+</footer>
+</html>
+            
+                    
+                
