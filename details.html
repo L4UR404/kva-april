@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+</head>
+<body>
+    
+    @if (toy() ) {
+        <div class="details-wrapper" >
+            <mat-card class="details-card">
+                <mat-card-content>
+                    <img [src]="utils.getImgUrl(toy()!)" mat-card-image>
+                </mat-card-content>
+                
+            </mat-card>
+            <mat-card class="details-card">
+                 <mat-card-content>
+                <mat-list>
+                    <h3><li> {{toy()?.name}}</li></h3>
+                    
+                    <mat-list-item>
+                        <mat-icon matListItemIcon>wc</mat-icon>
+                        <div matListItemTitle>pol:</div> 
+                        <div matListItemLine>{{toy()?.targetGroup}}</div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-icon matListItemIcon>calendar_month</mat-icon>
+                        <div matListItemTitle>datum proizvodnje:</div>
+                        <div matListItemLine>{{toy()?.productionDate}}</div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-icon matListItemIcon>star</mat-icon>
+                        <div matListItemTitle>godine:</div>
+                        <div matListItemLine> {{toy()?.ageGroup?.name}}</div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-icon matListItemIcon>info</mat-icon>
+                        <div matListItemTitle>tip:</div>
+                        <div matListItemLine>{{toy()?.type?.name}} </div>
+                    </mat-list-item>
+                    <ul>
+                    <li>opis: {{toy()?.description}}</li>
+                    </ul>
+                    <mat-list-item>
+                        <mat-icon matListItemIcon>payments</mat-icon>
+                        <div matListItemTitle>cena:</div>
+                        <div matListItemLine>{{toy()?.price}}rsd </div>
+                    </mat-list-item>
+                </mat-list>
+                
+            </mat-card-content>
+            @if (authServise.getActiveUser()) {
+            <mat-card-actions>
+                
+        <a [routerLink]="`/details/${toy()?.toyId}/order`" matButton>
+          <mat-icon fontIcon="confirmation_number"/>
+          kupi
+        </a>
+      
+            </mat-card-actions>
+            }
+            </mat-card>
+           
+        </div>
+       
+        
+    }
+    @else {
+        <app-loading/>
+    }
+</body>
+</html>
