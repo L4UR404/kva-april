@@ -1,0 +1,108 @@
+@if (activeUser) {
+<mat-card class="login-card">
+    <h1>Password update</h1>
+    <mat-card-content>
+        <div >
+            <mat-form-field class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" [(ngModel)]="activeUser!.email" disabled>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-label>Old password</mat-label>
+              <input matInput type="text" [(ngModel)]="oldPassword" >
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-label>New password</mat-label>
+              <input matInput type="text" [(ngModel)]="newPassword">
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-label>Repeat new password</mat-label>
+              <input matInput type="text" [(ngModel)]="passRepeat">
+            </mat-form-field>
+            
+            
+        </div>
+          
+     <mat-card-actions>
+        <button type="button" matButton (click)="updatePassword()">
+           <mat-icon fontIcon="password"/> Update password
+        </button>
+     </mat-card-actions>
+    
+   
+     </mat-card-content>
+</mat-card>
+     
+<mat-card class="login-card">      
+    <mat-card-content>
+      <h1>User details</h1>
+        <div>
+            
+            <mat-form-field class="full-width">
+              <mat-label>First name</mat-label>
+              <input matInput type="text" [(ngModel)]="activeUser!.firstName" >
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-label>Last name</mat-label>
+              <input matInput type="text" [(ngModel)]="activeUser!.lastName">
+            </mat-form-field>
+            
+            <mat-form-field class="full-width">
+            <mat-label>Gender preference</mat-label>
+               <mat-select [(ngModel)]="activeUser!.preferenceGender" 
+                        (ngModelChange)="onPreferenceChange($event)">
+                    @for (gend of preferenceGender(); track gend) {
+                <mat-option [value]="gend">
+                    {{gend}}
+                </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+         </div>
+     <mat-card-actions>
+        <button type="button" matButton (click)="updateUser()">
+           <mat-icon fontIcon="save"/> Save changes
+        </button>
+     </mat-card-actions>
+    
+<mat-card-content>
+    <h1>Moje porudžbine (plaćeno)</h1>
+    
+    @if (paidOrders().length > 0) {
+      <mat-list>
+        @for (order of paidOrders(); track $index) {
+          <mat-list-item>
+            <mat-icon matListItemIcon fontIcon="check_circle" style="color: green;"></mat-icon>
+              <div matListItemTitle>{{ order.toyName }}</div>
+               <div matListItemLine>
+                  Količina: {{ order.count }} | Datum: {{ order.createdAt  }}
+               </div>
+          </mat-list-item>
+        }
+      </mat-list>
+    } @else {
+      <p>Nemate prethodnih porudžbina.</p>
+    }
+  </mat-card-content>
+    
+     </mat-card-content>
+</mat-card>
+<mat-card class="user-card">
+<mat-card-content>
+  <ul>
+    <h1>Recomended toys</h1>
+    @for (t of recommended(); track $index) {
+      <li>{{t.name}}</li>
+      <a [routerLink]="`/details/${t.toyId}`">
+                   info
+      </a>
+      
+    }
+    
+  </ul>
+</mat-card-content>
+</mat-card>
+}
+ @else {
+  <app-loading></app-loading>
+}
