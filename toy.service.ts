@@ -30,13 +30,13 @@ export class ToyService{
         return await client.get<string[]>('/toy/type')
     }
     static async getToysToPreferenceGender(gend: string){
-        const rsp= await client.get<ToyModel[]>('/toy');
+        const rsp= await client.get<ToyModel[]>('/toy')
         return rsp.data.filter(t => t.targetGroup === gend)
         
     }
     static async getToyPrice(id: number): Promise<number> {
-    const rsp = await client.get<ToyModel>('/toy/' + id);
-    return rsp.data.price;
+    const rsp = await client.get<ToyModel>('/toy/' + id)
+    return rsp.data.price
   }
   static async getToysByIds(ids: number){
     return await client.request({
