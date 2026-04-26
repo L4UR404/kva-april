@@ -80,8 +80,8 @@ export class Order {
   }
 
   onPreferenceChangePakovanje(newPref: number){
-    this.odabranoPakovannje.set(newPref); // Mora .set() za signal
-  this.updateTotal();
+    this.odabranoPakovannje.set(newPref)
+  this.updateTotal()
 
   }
   updateTotal(){
@@ -97,16 +97,16 @@ export class Order {
   placeOrder(){
     // Kreiramo finalni objekat pre slanja
   const finalOrder: Partial<OrderModel> = {
-    pakovanjeId: this.odabranoPakovannje(), // Uzimamo trenutnu vrednost signala
-    count: this.count(),                    // Uzimamo trenutnu količinu
+    pakovanjeId: this.odabranoPakovannje(), 
+    count: this.count(),                    
     state: 'w'
     
     };
 
   Alerts.confirm(`Da li ste sigurni da želite poručiti nešto u iznosu od ${this.totalPrice()} rsd?`, () => {
-    AuthService.createOrder(finalOrder, this.toy()!);
-    this.router.navigate(['/cart']);
-  });
+    AuthService.createOrder(finalOrder, this.toy()!)
+    this.router.navigate(['/cart'])
+  })
   }
   
 }
