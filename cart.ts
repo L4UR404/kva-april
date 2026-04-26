@@ -50,17 +50,17 @@ export class Cart {
 
   for (let order of orders) {
     try {
-      // 1. Dobijamo cenu igračke sa API-ja
+      
       const toyPrice = await ToyService.getToyPrice(order.toyId);
       
-      // 2. Dobijamo podatke o pakovanju iz DataService
+  
       const pakovanje = DataService.getZapakovanoById(order.pakovanjeId);
       
-      // 3. Računamo sumu za taj red
+     
       const rowTotal = (toyPrice + (pakovanje?.price || 0)) * order.count;
       tempTotal += rowTotal;
 
-      // 4. Pakujemo SVE podatke u jedan objekat koji ide u tabelu
+   
       processedOrders.push({
         ...order,
         pakovanjeName: pakovanje ? pakovanje.name : 'Nije izabrano',
@@ -81,7 +81,6 @@ export class Cart {
     Alerts.confirm(`Da li ste sigurni da želite da platite ukupno ${this.totalSum} RSD?`, () => {
     AuthService.payOrders();
     this.router.navigate(['/user'])
-    // Osvežavamo prikaz - sada će ordersWithPrices biti prazan niz
     this.loadOrders(); 
     
     console.log("Uspešno ste poručili proizvode!");
@@ -89,10 +88,10 @@ export class Cart {
     }
 
     cancel(createdAt: string) {
-    // Pozivamo servis da otkaže u LocalStorage-u
+  
     AuthService.cancelOrder(createdAt);
   
-    // Ponovo učitavamo narudžbine da bi tabela povukla sveže stanje (bez otkazane)
+  
     this.loadOrders();
     }
     getOrders(){
